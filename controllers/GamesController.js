@@ -55,7 +55,7 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
 
   function setDayEvent() {
     //Sets the day's random event.  Each even has an equally weighted chance of happening.
-    var randomNum = Math.floor(Math.random() * 9) + 1;
+    var randomNum = Math.floor(Math.random() * 11) + 1;
     if(randomNum == 1) {
       //Sets the price of pollo to a random number with 10 of pollo's minimum price.
       $scope.tacos[1].currentPrice = Math.floor(Math.random() * 10) + $scope.tacos[1].minPrice;
@@ -69,7 +69,7 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
     } else if(randomNum == 3) {
       //Sets the price of lengua to a random number within 300 of it's max price.
       $scope.tacos[7].currentPrice = Math.floor(Math.random() * 300) + ($scope.tacos[7].maxPrice - 300);
-      return "Lengua is named is the tastiest taco meat by Hipster Magazine.  Demand has soared!";
+      return "Lengua is named is the tastiest taco meat by Underground Hipster Magazine.  Demand has soared!";
     } else if(randomNum == 4) {
       //Sets the price of camarones to a random number within 500 of it's minimum price.
       $scope.tacos[10].currentPrice = Math.floor(Math.random() * 500) + ($scope.tacos[10].minPrice);
@@ -98,6 +98,32 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
           $scope.playerInventory[i].tacoQuantity *= .5;
       };
       return "A rival truck broke into your truck and stole supplies! Half of your inventory is gone!";
+    } else if(randomNum == 10) {
+      $scope.tacos[0].currentPrice = Math.floor(Math.random() * 15) + $scope.tacos[0].minPrice;
+      $scope.tacos[1].currentPrice = Math.floor(Math.random() * 15) + $scope.tacos[1].minPrice;
+      $scope.tacos[2].currentPrice = Math.floor(Math.random() * 20) + $scope.tacos[2].minPrice;
+      $scope.tacos[3].currentPrice = Math.floor(Math.random() * 30) + $scope.tacos[3].minPrice;
+      $scope.tacos[4].currentPrice = Math.floor(Math.random() * 50) + $scope.tacos[4].minPrice;
+      $scope.tacos[5].currentPrice = Math.floor(Math.random() * 100) + $scope.tacos[5].minPrice;
+      $scope.tacos[6].currentPrice = Math.floor(Math.random() * 500) + $scope.tacos[6].minPrice;
+      $scope.tacos[7].currentPrice = Math.floor(Math.random() * 400) + $scope.tacos[7].minPrice;
+      $scope.tacos[8].currentPrice = Math.floor(Math.random() * 450) + $scope.tacos[8].minPrice;
+      $scope.tacos[9].currentPrice = Math.floor(Math.random() * 200) + $scope.tacos[9].minPrice;
+      $scope.tacos[10].currentPrice = Math.floor(Math.random() * 1000) + $scope.tacos[10].minPrice;
+      return "Ronald McTrump has increased penalties for people found buying tacos, scaring away the public! Prices across the board have dropped!";
+    } else if(randomNum == 11) {
+      $scope.tacos[0].currentPrice = Math.floor(Math.random() * 15) + ($scope.tacos[0].maxPrice - 15);
+      $scope.tacos[1].currentPrice = Math.floor(Math.random() * 15) + ($scope.tacos[1].maxPrice - 15);
+      $scope.tacos[2].currentPrice = Math.floor(Math.random() * 20) + ($scope.tacos[2].maxPrice - 20);
+      $scope.tacos[3].currentPrice = Math.floor(Math.random() * 30) + ($scope.tacos[3].maxPrice - 30);
+      $scope.tacos[4].currentPrice = Math.floor(Math.random() * 50) + ($scope.tacos[4].maxPrice - 50);
+      $scope.tacos[5].currentPrice = Math.floor(Math.random() * 100) + ($scope.tacos[5].maxPrice - 100);
+      $scope.tacos[6].currentPrice = Math.floor(Math.random() * 500) + ($scope.tacos[6].maxPrice - 500);
+      $scope.tacos[7].currentPrice = Math.floor(Math.random() * 400) + ($scope.tacos[7].maxPrice - 400);
+      $scope.tacos[8].currentPrice = Math.floor(Math.random() * 450) + ($scope.tacos[8].maxPrice - 450);
+      $scope.tacos[9].currentPrice = Math.floor(Math.random() * 200) + ($scope.tacos[9].maxPrice - 200);
+      $scope.tacos[10].currentPrice = Math.floor(Math.random() * 1000) + ($scope.tacos[10].maxPrice - 1000);
+      return "A popular celebrity was spotted eating tacos! All taco prices are high!";
     };
   };
 
