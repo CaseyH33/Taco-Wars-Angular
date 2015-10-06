@@ -1,0 +1,50 @@
+Starting values:
+Cash: 2000
+Loan: 2000
+Bank: 0
+(interest amount 10% per day)
+
+Types of Tacos:
+  Carne Asada
+    Range: 25-99
+  Pollo
+    Range: 23-118
+  Carnitas
+    Range: 32-148
+  Al Pastor
+    Range: 43-198
+  Adobada
+    Range: 98-374
+  Chorizo
+    Range: 224-963
+  Cabeza
+    Range: 742-3598
+  Lengua
+    Range: 697-2963
+  Tripas
+    Range: 354-3275
+  Pescado
+    Range: 2306-4712
+  Camarones
+    Range: 2904-8487
+
+Locations:
+Downtown
+Sporting Event
+Beach
+Suburbs
+University
+Fair
+
+Events:
+Rival truck scored some cheap chicken! Pollo prices have bottomed out!
+Latest shipment of pork was hijacked! Carnitas, chorizo, and al pastor prices have skyrocketed!
+Lengua is named is the tastiest taco meat by Hipster Magazine.  Demand has soared!
+Some tainted meat at a rival truck has scared people off Camarones.  Prices have plummeted!
+A new supplier of beef has been found! Carne Asada prices have dropped!
+Oil spill at the beach! Pescado and Camarones prices are insanely high!
+Cops have cracked down on cabeza and tripas sales! Prices have increased with the risk!
+Cops raided your truck! You had to pay them off! (50% of cash gone)
+A rival truck broke into your truck and stole supplies! (50% inventory gone)
+
+Intro Story:
