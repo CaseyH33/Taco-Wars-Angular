@@ -30,6 +30,10 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
         $scope.dayEvent = setDayEvent();
       };
     };
+    //Ends game after 30 days.
+    if($scope.dayCount > 30) {
+      return true;
+    };
   };
 
   function setCurrentDayInventory() {
