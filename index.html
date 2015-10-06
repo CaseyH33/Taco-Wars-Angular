@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html ng-app="tacoWars">
+  <head>
+    <title>Taco Wars!</title>
+    <script src="lib/angular.js"></script>
+    <script src="lib/angular-ui-router.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers/GamesController.js"></script>
+    <script src="services/TacosFactory.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div ui-view="body"></div>
+    </div>
+  </body>
+</html>
