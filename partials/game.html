@@ -2,11 +2,11 @@
   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
     <h1> TACO's AVAILABLE </h1>
     <li ng-repeat="taco in currentDayInventory">
-      <a data-toggle="modal" data-target="#sellModal">{{ taco.type }}  {{ taco.currentPrice }}</a>
+      <a data-toggle="modal" data-target="#buyModal">{{ taco.type }}  {{ taco.currentPrice }}</a>
     </li>
   </div>
 
-  <div id="sellModal" class="modal fade" role="dialog">
+  <div id="buyModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
@@ -17,9 +17,10 @@
         </div>
         <div class="modal-body">
           <p>How many {{ taco.type }} would you like to buy?  </p>
-          <from>
+          <form>
             <input type="number" name="quantity" placeholder="input a number" required>
-          <button type="button" class="btn btn-default" data-dismiss="modal" ng-submit="buyTacos(taco, quantity)">Buy</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-submit="buyTacos(taco, quantity)">Buy</button>
+          </form>
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 
         </div>
