@@ -7,4 +7,11 @@ tacoWars.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'partials/game.html',
     controller: 'GamesCtrl'
   });
+
+  // displays pop window
+  $stateProvider.state("inventory", {
+    url: "/inventory",
+    templateUrl: "partials/inventory.html",
+    controller: "GamesCtrl"
+  });
 });

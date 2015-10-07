@@ -6,10 +6,11 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
     $scope.bank = 0;
     $scope.tacos = TacosFactory.tacos;
     $scope.interestRate = 1.1;
-    $scope.dayCount = 1;
+    $scope.dayCount = 0;
     $scope.currentDayInventory = [];
     $scope.playerInventory = [];
     $scope.dayEvent = false;
+    $scope.nextDay();
   };
 
   $scope.nextDay = function() {
@@ -132,7 +133,7 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
     };
   };
 
-  function buyTacos(taco, quantity) {
+  $scope.buyTacos = function(taco, quantity) {
     //Purchases a certain taco meat in a certain quantity as long as the player has enough cash.
     if((taco.currentPrice * quantity) > $scope.cash) {
       return false;
