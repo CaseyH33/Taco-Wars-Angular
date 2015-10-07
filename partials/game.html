@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <h1> TACO's AVAILABLE </h1>
+    <li ng-repeat="taco in currentDayInventory">
+      {{ taco.type }}  {{ taco.currentPrice }}
+    </li>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <h1> TACO INVENTORY  </h1>
+    <li ng-repeat="taco in playerInventory">
+      {{ taco.tacoType }}  {{ taco.tacoQuantity }}  {{ taco.tacoPrice }}
+    </li>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <h1> GAME STATS  </h1>
+    <ul>
+      <li>Cash  {{ cash }}</li>
+      <li>Bank {{ bank }}</li>
+      <li>Loan Amount {{ loan }}</li>
+      <li>Day {{ dayCount }}</li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+
+  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+    <h1> GAME LOG </h1>
+    <p ng-if="dayEvent"> {{ dayEvent }} </p>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <h1> LOCATIONS   </h1>
+    <ul>
+      <li ng-click="nextDay()">Downtown</li>
+      <li ng-click="nextDay()">Sporting Event</li>
+      <li ng-click="nextDay()">Beach</li>
+      <li ng-click="nextDay()">Suburbs</li>
+      <li ng-click="nextDay()">Fair</li>
+      <li ng-click="nextDay()">University</li>
+    </ul>
+  </div>
+</div>
+
+<button ng-click="newGame()">New Game</button>

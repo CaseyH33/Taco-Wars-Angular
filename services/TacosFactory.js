@@ -60,7 +60,7 @@ tacoWars.factory('TacosFactory', function TacosFactory() {
     {
       type: "Tripas",
       quantity: 0,
-      minPrice: 354
+      minPrice: 354,
       maxPrice: 3275,
       currentPrice: 0
     },
@@ -72,12 +72,12 @@ tacoWars.factory('TacosFactory', function TacosFactory() {
       currentPrice: 0
     },
     {
-      type: "Camarones"
+      type: "Camarones",
       quantity: 0,
       minPrice: 2904,
       maxPrice: 8487,
       currentPrice: 0
     }
   ];
-
-})
+  return factory;
+});

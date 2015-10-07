@@ -9,11 +9,12 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
     $scope.dayCount = 1;
     $scope.currentDayInventory = [];
     $scope.playerInventory = [];
+    $scope.dayEvent = false;
   };
 
-  function nextDay() {
+  $scope.nextDay = function() {
     //Increases loan amount by the interest rate
-    $scope.loan *= $scope.interestRate;
+    $scope.loan = Math.round($scope.loan * $scope.interestRate);
 
     //Increases day count by one
     $scope.dayCount++;
@@ -24,6 +25,7 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
     //Sets the available taco meats for the day
     setCurrentDayInventory();
 
+    $scope.dayEvent = false;
     //After day 5, there is a 20% chance of an "event" happening
     if($scope.dayCount > 5) {
       if(Math.random() < 0.2) {
@@ -48,10 +50,13 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
 
   function setPrices() {
     //Sets the day's prices for each taco meat, with a random price between the tacos max and min prices
-    $scope.tacos.forEach(function(taco) {
-      $scope.tacos.taco.currentPrice = Math.floor(Math.random() * (taco.maxPrice - taco.minPrice + 1)) + taco.minPrice;
-    });
+    for(var i =0; i<$scope.tacos.length; i++) {
+        $scope.tacos[i].currentPrice = Math.floor(Math.random() * ($scope.tacos[i].maxPrice - $scope.tacos[i].minPrice + 1)) + $scope.tacos[i].minPrice;
   };
+};
+
+
+//Make sure the types of meat are available after events
 
   function setDayEvent() {
     //Sets the day's random event.  Each even has an equally weighted chance of happening.
@@ -94,7 +99,7 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
       return "Cops raided your truck! You had to pay them off with half of your cash!";
     } else if(randomNum == 9) {
       //Each taco in the inventory has its quantity cut in half.
-      for(i=0; i<$scope.playerInventory.length; i++) {
+      for(var i=0; i<$scope.playerInventory.length; i++) {
           $scope.playerInventory[i].tacoQuantity *= .5;
       };
       return "A rival truck broke into your truck and stole supplies! Half of your inventory is gone!";
@@ -148,7 +153,6 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
           $scope.inventory.splice(inventoryIndex, 1);
         };
       };
-    };
   };
 
   function depositToBank(amount) {
@@ -163,7 +167,7 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
 
   function withdrawFromBank(amount) {
     //Withdraws funds from the bank and adds them to cash, if the number is positive and not more than the amount in the bank
-    if(amount > $scope.bank) || (amount < 0)) {
+    if((amount > $scope.bank) || (amount < 0)) {
       return false;
     } else {
       $scope.cash += amount;
