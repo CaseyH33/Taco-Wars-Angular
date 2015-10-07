@@ -1,4 +1,4 @@
-tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
+tacoWars.controller('GamesCtrl', function GamesCtrl($scope, $modal, $log, TacosFactory) {
 
   $scope.newGame = function() {
     $scope.cash = 2000;
@@ -184,6 +184,23 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
       $scope.cash -= amount;
       $scope.loan -= amount;
     };
+  };
+
+  $scope.buyBox = function(size) {
+    console.log(size);
+    var modalInstance = $modal.open({
+      templateUrl: '../modals/buyModal.html',
+      controller: 'ModalInstanceCtrl',
+      size: size,
+      resolve: {
+        tacos: function() {
+          return $scope.tacos;
+        },
+        taco: function() {
+          return size;
+        }
+      }
+    });
   };
 
 });

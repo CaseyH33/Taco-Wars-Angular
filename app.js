@@ -9,9 +9,9 @@ tacoWars.config(function($stateProvider, $urlRouterProvider) {
   });
 
   // displays pop window
-  $stateProvider.state("buyModal", {
-    url: "/:tacoId",
-    templateUrl: "partials/inventory.html",
-    controller: "TacoCtrl"
-  });
+  // $stateProvider.state("buyModal", {
+  //   url: "/:tacoId",
+  //   templateUrl: "partials/inventory.html",
+  //   controller: ["TacoCtrl", "ModalCtrl", "ModalInstanceCtrl"]
+  // });
 });
