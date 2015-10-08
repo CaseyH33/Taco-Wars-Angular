@@ -1,11 +1,11 @@
-tacoWars.controller('GamesCtrl', function GamesCtrl($scope, $modal, $log, TacosFactory) {
+tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
 
   $scope.newGame = function() {
     $scope.cash = 2000;
     $scope.loan = 2000;
     $scope.bank = 0;
     $scope.tacos = TacosFactory.tacos;
-    $scope.interestRate = 1.1;
+    $scope.interestRate = 1.2;
     $scope.dayCount = 0;
     $scope.currentDayInventory = [];
     $scope.playerInventory = [];
@@ -14,28 +14,39 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, $modal, $log, TacosF
   };
 
   $scope.nextDay = function() {
-    //Increases loan amount by the interest rate
-    $scope.loan = Math.round($scope.loan * $scope.interestRate);
-
     //Increases day count by one
     $scope.dayCount++;
+
+    //Increases loan amount by the interest rate
+    $scope.loan = Math.round($scope.loan * $scope.interestRate);
 
     //Sets the prices for the day
     setPrices();
 
-    //Sets the available taco meats for the day
-    setCurrentDayInventory();
-
     $scope.dayEvent = false;
-    //After day 5, there is a 20% chance of an "event" happening
-    if($scope.dayCount > 5) {
-      if(Math.random() < 0.2) {
-        $scope.dayEvent = setDayEvent();
-      };
-    };
+
+    $scope.currentDayEventTacos = [];
+
     //Ends game after 30 days.
     if($scope.dayCount > 30) {
-      return true;
+      var finalCash = $scope.cash + $scope.bank - $scope.loan;
+      alert("Game Over! Your final cash total is: " + finalCash);
+      $scope.newGame();
+    } else if($scope.dayCount == 30) {
+      alert("Final day!");
+    } else {
+      //Sets the available taco meats for the day unless it's the final day, when all meats are available
+      setCurrentDayInventory();
+    };
+
+    //After day 5, there is a 25% chance of an "event" happening
+    if($scope.dayCount > 5) {
+      if(Math.random() < 0.25) {
+        $scope.dayEvent = setDayEvent();
+        if($scope.currentDayEventTacos > 0) {
+          checkAfterEvent($scope.currentDayEventTacos);
+        };
+      };
     };
   };
 
@@ -54,8 +65,22 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, $modal, $log, TacosF
     for(var i =0; i<$scope.tacos.length; i++) {
         $scope.tacos[i].currentPrice = Math.floor(Math.random() * ($scope.tacos[i].maxPrice - $scope.tacos[i].minPrice + 1)) + $scope.tacos[i].minPrice;
   };
-};
+  };
 
+//Makes sure after the event is determined that the taco types effected by the event are available that day
+  function checkAfterEvent(tacoArr) {
+    for(i = 0; i<tacosArr.length; i++) {
+      var check = false;
+      for(j = 0; j<$scope.currentDayInventory; j++) {
+        if(tacoArr[i].tacoType == $scope.currentDayInventory[j].tacoType) {
+          check = true;
+        }
+      }
+      if(check == false) {
+        $scope.currentDayInventory.push(tacoArr[i]);
+      };
+    };
+  };
 
 //Make sure the types of meat are available after events
 
@@ -65,34 +90,41 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, $modal, $log, TacosF
     if(randomNum == 1) {
       //Sets the price of pollo to a random number with 10 of pollo's minimum price.
       $scope.tacos[1].currentPrice = Math.floor(Math.random() * 10) + $scope.tacos[1].minPrice;
+      $scope.currentDayEventTacos.push($scope.tacos[1]);
       return "A rival truck scored some cheap chicken! Pollo prices have bottomed out!";
     } else if(randomNum == 2) {
       //Sets the price of carnitas to a random number within 20 of it's maximum price, al pastor to within 30 of it's max, and chorizo within 100 of it's max.
       $scope.tacos[2].currentPrice = Math.floor(Math.random() * 20) + ($scope.tacos[2].maxPrice - 20);
       $scope.tacos[3].currentPrice = Math.floor(Math.random() * 30) + ($scope.tacos[3].maxPrice - 30);
       $scope.tacos[5].currentPrice = Math.floor(Math.random() * 100) + ($scope.tacos[5].maxPrice - 100);
+      $scope.currentDayEventTacos.push($scope.tacos[2], $scope.tacos[3], $scope.tacos[5]);
       return "The latest shipment of pork was hijacked! Carnitas, Chorizo, and Al Pastor prices have skyrocketed!";
     } else if(randomNum == 3) {
       //Sets the price of lengua to a random number within 300 of it's max price.
       $scope.tacos[7].currentPrice = Math.floor(Math.random() * 300) + ($scope.tacos[7].maxPrice - 300);
+      $scope.currentDayEventTacos.push($scope.tacos[7]);
       return "Lengua is named is the tastiest taco meat by Underground Hipster Magazine.  Demand has soared!";
     } else if(randomNum == 4) {
       //Sets the price of camarones to a random number within 500 of it's minimum price.
       $scope.tacos[10].currentPrice = Math.floor(Math.random() * 500) + ($scope.tacos[10].minPrice);
+      $scope.currentDayEventTacos.push($scope.tacos[10]);
       return "Some tainted shrimp at a rival truck has scared people off Camarones.  Prices have plummeted!";
     } else if(randomNum == 5) {
       //Sets the price of carne asada to a random number within 10 of it's minimum price.
       $scope.tacos[0].currentPrice = Math.floor(Math.random() * 10) + ($scope.tacos[0].minPrice);
+      $scope.currentDayEventTacos.push($scope.tacos[0]);
       return "A new supplier of beef has been found! Carne Asada prices have dropped!";
     } else if(randomNum == 6) {
       //Sets the price of pescado to a random number within 500 of it's maximum price, and camarones to within 800 of it's max.
       $scope.tacos[9].currentPrice = Math.floor(Math.random() * 500) + ($scope.tacos[9].maxPrice - 500);
       $scope.tacos[10].currentPrice = Math.floor(Math.random() * 800) + ($scope.tacos[10].maxPrice - 800);
+      $scope.currentDayEventTacos.push($scope.tacos[9], $scope.tacos[10]);
       return "Oil spill at the beach! Pescado and Camarones prices are insanely high!";
     } else if(randomNum == 7) {
       //Sets the price of cabeza to a random number within 750 of it's maximum price, and tripas to within 500 of it's max.
       $scope.tacos[6].currentPrice = Math.floor(Math.random() * 750) + ($scope.tacos[6].maxPrice - 750);
       $scope.tacos[8].currentPrice = Math.floor(Math.random() * 500) + ($scope.tacos[8].maxPrice - 500);
+      $scope.currentDayEventTacos.push($scope.tacos[6], $scope.tacos[8]);
       return "Cops have cracked down on cabeza and tripas sales! Prices have increased with the risk!";
     } else if(randomNum == 8) {
       //Cash is cut in half.
@@ -138,25 +170,52 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, $modal, $log, TacosF
     if((taco.currentPrice * quantity) > $scope.cash) {
       return false;
     } else {
-      $scope.playerInventory.push({tacoType: taco.type, tacoPrice: taco.currentPrice, tacoQuantity: quantity});
-      $scope.cash -= (taco.currentPrice * quantity);
+      var check = false;
+      for(var i=0; i<$scope.playerInventory.length; i++) {
+        if(($scope.playerInventory[i].tacoType == taco.tacoType) && ($scope.playerInventory[i].tacoPrice == taco.currentPrice)) {
+          $scope.playerInventory[i].tacoQuantity += quantity;
+          $scope.cash -= (taco.currentPrice * quantity);
+          check = true;
+        };
+      };
+      if(check == false) {
+        $scope.playerInventory.push({tacoType: taco.tacoType, tacoPrice: taco.currentPrice, tacoQuantity: quantity});
+        $scope.cash -= (taco.currentPrice * quantity);
+      };
     };
   };
 
-  function sellTacos(inventoryIndex, saleQuantity) {
+  $scope.sellTacos = function(taco, saleQuantity) {
     //Sells a certain quantity of a certain taco meat (if the quantity does not exceed the inventory quantity).  The taco object is removed from the inventory array if it's quantity is zero.
-    if(saleQuantity > $scope.inventory[inventoryIndex].tacoQuantity) {
+    for(var i = 0; i < $scope.playerInventory.length; i++) {
+      if($scope.playerInventory[i].tacoType == taco.tacoType) {
+        var inventoryIndex = i;
+      };
+    };
+    for(var j = 0; j < $scope.tacos.length; j++) {
+      if($scope.tacos[j].tacoType == taco.tacoType) {
+        var tacoIndex = j;
+      };
+    };
+    var available = false;
+    for(var k = 0;  k < $scope.currentDayInventory.length; k++) {
+      if($scope.currentDayInventory[k].tacoType == taco.tacoType) {
+        available = true;
+      };
+    };
+
+    if((saleQuantity > $scope.playerInventory[inventoryIndex].tacoQuantity) || (available == false)){
       return false;
     } else {
-        $scope.cash += ($scope.inventory[inventoryIndex].currentPrice * saleQuantity);
-        $scope.inventory[inventoryIndex].tacoQuantity -= saleQuantity;
-        if($scope.inventory[inventoryIndex].tacoQuantity == 0) {
-          $scope.inventory.splice(inventoryIndex, 1);
+        $scope.cash += ($scope.tacos[tacoIndex].currentPrice * saleQuantity);
+        $scope.playerInventory[inventoryIndex].tacoQuantity -= saleQuantity;
+        if($scope.playerInventory[inventoryIndex].tacoQuantity == 0) {
+          $scope.playerInventory.splice(inventoryIndex, 1);
         };
-      };
+    };
   };
 
-  function depositToBank(amount) {
+  $scope.depositToBank = function(amount) {
     //Deposits cash into the bank as long as it is a positive number not more than the cash the player has
     if((amount > $scope.cash) || (amount < 0)) {
       return false;
@@ -166,7 +225,7 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, $modal, $log, TacosF
     }
   };
 
-  function withdrawFromBank(amount) {
+  $scope.withdrawFromBank = function(amount) {
     //Withdraws funds from the bank and adds them to cash, if the number is positive and not more than the amount in the bank
     if((amount > $scope.bank) || (amount < 0)) {
       return false;
@@ -176,7 +235,7 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, $modal, $log, TacosF
     };
   };
 
-  function payOffLoan(amount) {
+  $scope.payOffLoan = function(amount) {
     //Reduces cash and loan if the amount is positive and doesn't exceed cash or loan
     if((amount > $scope.cash) || (amount <0) || (amount > $scope.loan)) {
       return false;
@@ -186,21 +245,10 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, $modal, $log, TacosF
     };
   };
 
-  $scope.buyBox = function(size) {
-    console.log(size);
-    var modalInstance = $modal.open({
-      templateUrl: '../modals/buyModal.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        tacos: function() {
-          return $scope.tacos;
-        },
-        taco: function() {
-          return size;
-        }
-      }
-    });
+  $scope.takeMoreLoan = function(amount) {
+    //Increases cash and loan amount
+    $scope.cash += amount;
+    $scope.loan += amount;
   };
 
 });
