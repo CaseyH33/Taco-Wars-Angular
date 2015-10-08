@@ -11,6 +11,7 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
     $scope.playerInventory = [];
     $scope.dayEvent = false;
     $scope.nextDay();
+    $scope.currentDayEventTacos = [];
   };
 
   $scope.nextDay = function() {
@@ -33,6 +34,7 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
       alert("Game Over! Your final cash total is: " + finalCash);
       $scope.newGame();
     } else if($scope.dayCount == 30) {
+      setCurrentDayInventory();
       alert("Final day!");
     } else {
       //Sets the available taco meats for the day unless it's the final day, when all meats are available
@@ -43,21 +45,25 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
     if($scope.dayCount > 5) {
       if(Math.random() < 0.25) {
         $scope.dayEvent = setDayEvent();
-        if($scope.currentDayEventTacos > 0) {
-          checkAfterEvent($scope.currentDayEventTacos);
-        };
+        checkAfterEvent();
       };
     };
   };
 
   function setCurrentDayInventory() {
     $scope.currentDayInventory = [];
-    //Sets the available tacos for each day.  Each meat has 75% chance of being availble
-    $scope.tacos.forEach(function(taco) {
-      if(Math.random() < 0.75) {
-        $scope.currentDayInventory.push(taco);
-      };
-    });
+    if($scope.dayCount == 30) {
+      for(var i=0; i<$scope.tacos.length; i++) {
+        $scope.currentDayInventory.push($scope.tacos[i]);
+      }
+    } else {
+      //Sets the available tacos for each day.  Each meat has 75% chance of being availble
+      $scope.tacos.forEach(function(taco) {
+        if(Math.random() < 0.75) {
+          $scope.currentDayInventory.push(taco);
+        };
+      });
+    };
   }
 
   function setPrices() {
@@ -68,16 +74,16 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
   };
 
 //Makes sure after the event is determined that the taco types effected by the event are available that day
-  function checkAfterEvent(tacoArr) {
-    for(i = 0; i<tacosArr.length; i++) {
+  function checkAfterEvent() {
+    for(i = 0; i<$scope.currentDayEventTacos.length; i++) {
       var check = false;
       for(j = 0; j<$scope.currentDayInventory; j++) {
-        if(tacoArr[i].tacoType == $scope.currentDayInventory[j].tacoType) {
+        if($scope.currentDayEventTacos[i].tacoType == $scope.currentDayInventory[j].tacoType) {
           check = true;
         }
       }
       if(check == false) {
-        $scope.currentDayInventory.push(tacoArr[i]);
+        $scope.currentDayInventory.push($scope.currentDayEventTacos[i]);
       };
     };
   };
@@ -128,12 +134,12 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
       return "Cops have cracked down on cabeza and tripas sales! Prices have increased with the risk!";
     } else if(randomNum == 8) {
       //Cash is cut in half.
-      Math.round($scope.cash *= .5);
+      $scope.cash = Math.round($scope.cash *= .5);
       return "Cops raided your truck! You had to pay them off with half of your cash!";
     } else if(randomNum == 9) {
       //Each taco in the inventory has its quantity cut in half.
       for(var i=0; i<$scope.playerInventory.length; i++) {
-          Math.round($scope.playerInventory[i].tacoQuantity *= .5);
+        $scope.playerInventory[i].tacoQuantity = Math.round($scope.playerInventory[i].tacoQuantity *= .5);
       };
       return "A rival truck broke into your truck and stole supplies! Half of your inventory is gone!";
     } else if(randomNum == 10) {

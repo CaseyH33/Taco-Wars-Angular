@@ -1,35 +1,42 @@
 
 <br> <br> <br> <br>
+<div class="header">
+<img src="taco-wars.jpg" id="taco-header">
+</div>
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 available">
     <h1> <center> TACOS AVAILABLE </h1>
-    <li ng-repeat="taco in currentDayInventory">
-      <a ng-click="showBuy = ! showBuy">{{ taco.tacoType }}  {{ taco.currentPrice }}</a>
-      <div class="buy-tacos" ng-show="showBuy">
-        <p>How many {{ taco.tacoType }} would you like to buy?  </p>
-        <form ng-submit="buyTacos(taco, quantity)">
-          <input type="number" name="quantity" ng-model="quantity" placeholder="input a number" required>
-          <button type="submit" class="btn btn-default" ng-click="showBuy = ! showBuy">Buy</button>
-        </form>
-        <button ng-click="showBuy = ! showBuy">Cancel</button>
-      </div>
-    </li>
+    <ul id="bulletless">
+      <li ng-repeat="taco in currentDayInventory track by $index">
+        <a ng-click="showBuy = ! showBuy"> {{ taco.tacoType }}  {{ taco.currentPrice }}</a>
+        <div class="buy-tacos" ng-show="showBuy">
+          <p>How many {{ taco.tacoType }} would you like to buy?  </p>
+          <form ng-submit="buyTacos(taco, quantity)">
+            <input type="number" name="quantity" ng-model="quantity" placeholder="input a number" required>
+            <button type="submit" class="btn btn-default" ng-click="showBuy = ! showBuy">Buy</button>
+          </form>
+          <button ng-click="showBuy = ! showBuy">Cancel</button>
+        </div>
+      </li>
+    </ul>
   </div>
 
   <div class="col-lg-4  col-md-4 col-sm-4 col-xs-4 inventory">
     <h1><center>  TACO INVENTORY  </h1>
-    <li ng-repeat="taco in playerInventory">
-      <a ng-click="showSell = ! showSell">
-      {{ taco.tacoType }}  {{ taco.tacoQuantity }}  {{ taco.tacoPrice }}</a>
-      <div class="sell-tacos" ng-show="showSell">
-        <p>How many {{ taco.tacoType }} would you like to sell?  </p>
-        <form ng-submit="sellTacos(taco, quantity)">
-          <input type="number" name="quantity" ng-model="quantity" placeholder="input a number" required>
-          <button type="submit" class="btn btn-default" ng-click="showSell = ! showSell">Sell</button>
-        </form>
-        <button ng-click="showSell = ! showSell">Cancel</button>
-      </div>
-    </li>
+    <ul id="bulletless">
+      <li ng-repeat="taco in playerInventory track by $index">
+        <a ng-click="showSell = ! showSell">
+        {{ taco.tacoType }}  {{ taco.tacoQuantity }}  {{ taco.tacoPrice }}</a>
+        <div class="sell-tacos" ng-show="showSell">
+          <p>How many {{ taco.tacoType }} would you like to sell?  </p>
+          <form ng-submit="sellTacos(taco, quantity)">
+            <input type="number" name="quantity" ng-model="quantity" placeholder="input a number" required>
+            <button type="submit" class="btn btn-default" ng-click="showSell = ! showSell">Sell</button>
+          </form>
+          <button ng-click="showSell = ! showSell">Cancel</button>
+        </div>
+      </li>
+  </ul>
   </div>
 
   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 stats">
