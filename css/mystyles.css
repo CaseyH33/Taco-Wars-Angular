@@ -22,7 +22,7 @@ body {
  border-width: 2px;
  border-color: black;
  border-style: solid;
- min-height: 500px;
+ min-height: 300px;
  background-color: rgba(192, 192, 192, .7);
  border-radius: 2em;
  padding: 1em;
@@ -34,7 +34,7 @@ body {
  border-width: 2px;
  border-color: black;
  border-style: solid;
- min-height: 400px;
+ min-height: 300px;
  background-color: rgba(192, 192, 192, .7);
  border-radius: 2em;
  padding: 1em;
@@ -44,7 +44,7 @@ body {
   border-width: 2px;
   border-color: black;
   border-style: solid;
-  height: 250px;
+  height: 125px;
   background-color: rgba(192, 192, 192, .7);
   border-radius: 2em;
   padding: 1em;
@@ -56,16 +56,15 @@ body {
   border-width: 2px;
   border-color: black;
   border-style: solid;
-  height: 250px;
+  min-height: 250px;
   background-color: rgba(192, 192, 192, .7);
   border-radius: 2em;
   padding: 1em;
-
-
-
 }
 .header {
 height: 200px;
+text-align: center;
+margin-bottom: 1em;
 }
 
 #taco-header {
@@ -82,7 +81,7 @@ ul#bulletless{
   color: black;
 }
 
-a:link {
+a {
   color: black;
   text-decoration:none;
 }
@@ -93,14 +92,13 @@ a:visited {
 }
 
 a:hover {
-  color: black;
-  text-decoration:none;
+  cursor: pointer;
 }
 
 a:active {
   color: black;
   text-decoration:none;
-  }
+}
 
 
 #floats {
