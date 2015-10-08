@@ -73,12 +73,14 @@ height: 200px;
   display: block;
   margin-left: auto;
   margin-right: auto;
+  border-radius: 2em;
+  padding: 1em;
 }
 
 ul#bulletless{
   list-style-type: none;
+  color: black;
 }
-
 
 a:link {
   color: black;
@@ -102,5 +104,38 @@ a:active {
 
 
 #floats {
-float: right; 
+float: right;
+}
+
+
+.story {
+position: center;
+border-radius: 2em;
+padding: 1em;
+border-width: 2px;
+border-color: black;
+border-style: solid;
+background-color: rgba(192, 192, 192, .7);
+
+}
+
+img#banner {
+  height: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 2em;
+  padding: 1em;
+}
+
+h1#banner-hero {
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px #000000;
+}
+
+h1#banner-villain {
+  text-align: center;
+  color: red;
+  text-shadow: 2px 2px #ffffff;
 }

@@ -1,14 +1,15 @@
 
 <br> <br> <br> <br>
 <div class="header">
-<img src="taco-wars.jpg" id="taco-header">
+<img src="css/taco-wars.jpg" id="taco-header">
 </div>
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 available">
     <h1> <center> TACOS AVAILABLE </h1>
     <ul id="bulletless">
       <li ng-repeat="taco in currentDayInventory track by $index">
-        <a ng-click="showBuy = ! showBuy"> {{ taco.tacoType }}  {{ taco.currentPrice }}</a>
+        <a ng-click="showBuy = ! showBuy">
+          {{ taco.tacoType }}  {{ taco.currentPrice }}</a>
         <div class="buy-tacos" ng-show="showBuy">
           <p>How many {{ taco.tacoType }} would you like to buy?  </p>
           <form ng-submit="buyTacos(taco, quantity)">
