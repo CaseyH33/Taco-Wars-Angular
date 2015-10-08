@@ -168,6 +168,8 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
   $scope.buyTacos = function(taco, quantity) {
     //Purchases a certain taco meat in a certain quantity as long as the player has enough cash.
     if((taco.currentPrice * quantity) > $scope.cash) {
+      var maxQuantity = Math.floor($scope.cash / taco.currentPrice);
+      alert("You don't have enough cash! Your max quantity is: " + maxQuantity);
       return false;
     } else {
       var check = false;
@@ -205,6 +207,11 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
     };
 
     if((saleQuantity > $scope.playerInventory[inventoryIndex].tacoQuantity) || (available == false)){
+      if(available == false) {
+        alert("No one is buying that taco here!");
+      } else {
+        alert("You don't have that many tacos to sell!");
+      }
       return false;
     } else {
         $scope.cash += ($scope.tacos[tacoIndex].currentPrice * saleQuantity);
@@ -218,6 +225,11 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
   $scope.depositToBank = function(amount) {
     //Deposits cash into the bank as long as it is a positive number not more than the cash the player has
     if((amount > $scope.cash) || (amount < 0)) {
+      if(amount < 0) {
+        alert("Please enter a valid amount!");
+      } else {
+        alert("You don't have that much cash!");
+      }
       return false;
     } else {
       $scope.cash -= amount;
@@ -228,6 +240,11 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
   $scope.withdrawFromBank = function(amount) {
     //Withdraws funds from the bank and adds them to cash, if the number is positive and not more than the amount in the bank
     if((amount > $scope.bank) || (amount < 0)) {
+      if(amount < 0) {
+        alert("Please enter a valid amount!");
+      } else {
+        alert("You don't have that much in the bank!");
+      }
       return false;
     } else {
       $scope.cash += amount;
@@ -238,6 +255,13 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
   $scope.payOffLoan = function(amount) {
     //Reduces cash and loan if the amount is positive and doesn't exceed cash or loan
     if((amount > $scope.cash) || (amount <0) || (amount > $scope.loan)) {
+      if(amount < 0) {
+        alert("Please enter a valid amount!");
+      } else if(amount > $scope.cash) {
+        alert("You don't have that much cash!");
+      } else {
+        alert("That's too more than your loan!");
+      }
       return false;
     } else {
       $scope.cash -= amount;
