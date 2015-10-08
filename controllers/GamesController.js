@@ -128,12 +128,12 @@ tacoWars.controller('GamesCtrl', function GamesCtrl($scope, TacosFactory) {
       return "Cops have cracked down on cabeza and tripas sales! Prices have increased with the risk!";
     } else if(randomNum == 8) {
       //Cash is cut in half.
-      $scope.cash *= .5;
+      Math.round($scope.cash *= .5);
       return "Cops raided your truck! You had to pay them off with half of your cash!";
     } else if(randomNum == 9) {
       //Each taco in the inventory has its quantity cut in half.
       for(var i=0; i<$scope.playerInventory.length; i++) {
-          $scope.playerInventory[i].tacoQuantity *= .5;
+          Math.round($scope.playerInventory[i].tacoQuantity *= .5);
       };
       return "A rival truck broke into your truck and stole supplies! Half of your inventory is gone!";
     } else if(randomNum == 10) {
